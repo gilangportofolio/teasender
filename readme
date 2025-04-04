@@ -1,0 +1,185 @@
+# TEA Token Sender by @gilangportofolio aka Pram
+
+## 📌 Pendahuluan
+Bot ini digunakan untuk mengirim token TEA secara otomatis ke banyak alamat dengan jumlah token dan jeda waktu yang dapat disesuaikan. Script ini juga memiliki fitur untuk memfilter dan memperbaiki format alamat sebelum dikirim.
+
+## 🛠️ Instalasi
+Sebelum menjalankan bot, pastikan Anda telah menginstal dependensi berikut:
+```sh
+pip install web3 python-dotenv requests
+```
+
+## 📂 File dan Fungsi
+
+1. **fix_json_format.py** → Digunakan untuk memperbaiki format JSON dari daftar alamat di `addresses.json`. Hasilnya akan disimpan di `addresses_fixed.json`.
+2. **filter.py** → Memfilter alamat yang sudah dikumpulkan dari `https://tea.daov.xyz/kyc-address`, lalu menyimpannya ke `filtered_addresses_formatted.json` setelah menghapus duplikasi.
+
+Setelah kedua langkah di atas dijalankan, salin seluruh isi dari `filtered_addresses_formatted.json` ke `addresses.json`.
+
+3. **send_tokens.py** → Bot utama untuk mengirim token ke alamat yang telah difilter.
+
+## 🚀 Cara Menggunakan
+
+### 1️⃣ Perbaiki Format JSON
+Sebelum memfilter alamat, jalankan script berikut untuk memastikan format JSON sudah benar:
+```sh
+python fix_json_format.py
+```
+Setelah dijalankan, alamat yang telah diperbaiki akan disimpan di `addresses_fixed.json`.
+
+### 2️⃣ Filter Alamat
+Gunakan script berikut untuk memfilter alamat yang valid dan menghapus duplikasi:
+```sh
+python filter.py
+```
+Alamat yang telah difilter akan disimpan di `filtered_addresses_formatted.json`. Jika Anda memiliki alamat sendiri, gabungkan ke `addresses.json`.
+
+### 3️⃣ Konfigurasi .env
+Buat file `.env` di direktori yang sama dengan isi berikut:
+```
+PRIVATE_KEY=your_private_key_here
+TOKEN_ADDRESS=your_token_address_here
+```
+Pastikan `PRIVATE_KEY` adalah kunci pribadi Anda dan `TOKEN_ADDRESS` adalah alamat kontrak token yang ingin dikirim.
+
+### 4️⃣ Jalankan Bot Pengirim Token
+Setelah semua siap, jalankan bot dengan:
+```sh
+python send_tokens.py
+```
+Bot akan:
+- Mengambil alamat dari `addresses.json`
+- Memastikan tidak mengirim ke alamat yang sudah menerima (tersimpan di `sent_addresses.json`)
+- Mengirim token dalam jumlah acak berdasarkan rentang yang Anda tentukan
+- Menjalankan transaksi dengan jeda waktu acak untuk menghindari spam
+
+## 🔧 Konfigurasi Lanjutan
+
+### Ubah Jumlah Token yang Dikirim
+Secara default, jumlah token yang dikirim akan diacak antara 1000 hingga 10000 TEA. Anda bisa mengubahnya di baris berikut pada `send_tokens.py`:
+```python
+amount = random.randint(1000, 10000)
+```
+
+### Ubah Jeda Waktu Antar Transaksi
+Jeda waktu transaksi diacak antara 2 hingga 10 detik. Anda bisa menyesuaikan di baris berikut:
+```python
+sleep_time = random.uniform(2, 10)
+```
+
+### Ubah Nama Token di Log
+Secara default, bot menampilkan nama token sebagai "ADP". Anda bisa mengubahnya di baris berikut:
+```python
+print(f"✅ Sent {amount} ADP ({amount_in_wei} wei) to {to_address} | TX: {tx_link}")
+```
+Ganti "ADP" dengan nama token Anda.
+
+## ❗ Penting
+- **Jangan pernah menghapus atau mengubah banner di dalam script.** Banner adalah bagian dari proteksi bot dan harus tetap utuh.
+- Jika ingin mengirim ulang ke alamat yang sama, hapus `sent_addresses.json` terlebih dahulu.
+- Pastikan saldo wallet cukup untuk mengirim token dan membayar gas fee.
+- Jangan pernah membagikan `PRIVATE_KEY` Anda kepada siapa pun.
+
+---
+
+🎉 **Selamat menggunakan TEA Token Sender!**
+
+TEA Token Sender by @gilangportofolio aka Pram
+
+📌 Introduction
+
+This bot is used to automatically send TEA tokens to multiple addresses with customizable token amounts and time intervals. The script also includes features to filter and correct address formatting before sending.
+
+🛠️ Installation
+
+Before running the bot, ensure you have installed the following dependencies:
+
+pip install web3 python-dotenv requests
+
+📂 Files and Functions
+
+fix_json_format.py → Used to correct the JSON format of the address list in addresses.json. The output will be saved in addresses_fixed.json.
+
+filter.py → Filters addresses collected from https://tea.daov.xyz/kyc-address and saves them to filtered_addresses_formatted.json after removing duplicates.
+
+After running the above two steps, copy the entire contents of filtered_addresses_formatted.json into addresses.json.
+
+send_tokens.py → The main bot for sending tokens to filtered addresses.
+
+🚀 How to Use
+
+1️⃣ Fix JSON Format
+
+Before filtering addresses, run the following script to ensure the JSON format is correct:
+
+python fix_json_format.py
+
+Once executed, the corrected addresses will be saved in addresses_fixed.json.
+
+2️⃣ Filter Addresses
+
+Use the following script to filter valid addresses and remove duplicates:
+
+python filter.py
+
+Filtered addresses will be saved in filtered_addresses_formatted.json. If you have your own addresses, merge them into addresses.json.
+
+3️⃣ Configure .env
+
+Create a .env file in the same directory with the following content:
+
+PRIVATE_KEY=your_private_key_here
+TOKEN_ADDRESS=your_token_address_here
+
+Ensure that PRIVATE_KEY is your private key and TOKEN_ADDRESS is the contract address of the token you want to send.
+
+4️⃣ Run the Token Sender Bot
+
+Once everything is set, run the bot with:
+
+python send_tokens.py
+
+The bot will:
+
+Retrieve addresses from addresses.json
+
+Ensure it does not send tokens to addresses that have already received them (tracked in sent_addresses.json)
+
+Send tokens in a randomized amount based on your specified range
+
+Execute transactions with random time delays to avoid spam detection
+
+🔧 Advanced Configuration
+
+Change the Number of Tokens Sent
+
+By default, the number of tokens sent is randomized between 1000 and 10000 TEA. You can modify this in send_tokens.py:
+
+amount = random.randint(1000, 10000)
+
+Change the Time Interval Between Transactions
+
+The time delay between transactions is randomized between 2 and 10 seconds. You can adjust it in the following line:
+
+sleep_time = random.uniform(2, 10)
+
+Change Token Name in Logs
+
+By default, the bot displays the token name as "ADP". You can change it in the following line:
+
+print(f"✅ Sent {amount} ADP ({amount_in_wei} wei) to {to_address} | TX: {tx_link}")
+
+Replace "ADP" with your token name.
+
+❗ Important Notes
+
+Never remove or modify the banner in the script. The banner is part of the bot’s protection and must remain intact.
+
+If you want to resend tokens to the same addresses, delete sent_addresses.json first.
+
+Ensure your wallet has enough balance to send tokens and cover gas fees.
+
+Never share your PRIVATE_KEY with anyone.
+
+🎉 Happy using TEA Token Sender!
+
