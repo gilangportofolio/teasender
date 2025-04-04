@@ -11,12 +11,15 @@ pip install web3 python-dotenv requests
 
 ## 📂 File dan Fungsi
 
-1. **fix_json_format.py** → Digunakan untuk memperbaiki format JSON dari daftar alamat di `addresses.json`. Hasilnya akan disimpan di `addresses_fixed.json`.
-2. **filter.py** → Memfilter alamat yang sudah dikumpulkan dari `https://tea.daov.xyz/kyc-address`, lalu menyimpannya ke `filtered_addresses_formatted.json` setelah menghapus duplikasi.
+1. **fix_json_format.py**  
+   Digunakan untuk memperbaiki format JSON dari daftar alamat di `addresses.json`. Hasilnya akan disimpan di `addresses_fixed.json`.
 
-Setelah kedua langkah di atas dijalankan, salin seluruh isi dari `filtered_addresses_formatted.json` ke `addresses.json`.
+2. **filter.py**  
+   Memfilter alamat yang sudah dikumpulkan dari `https://tea.daov.xyz/kyc-address`, lalu menyimpannya ke `filtered_addresses_formatted.json` setelah menghapus duplikasi.  
+   Setelah kedua langkah di atas dijalankan, salin seluruh isi dari `filtered_addresses_formatted.json` ke `addresses.json`.
 
-3. **send_tokens.py** → Bot utama untuk mengirim token ke alamat yang telah difilter.
+3. **send_tokens.py**  
+   Bot utama untuk mengirim token ke alamat yang telah difilter.
 
 ## 🚀 Cara Menggunakan
 
@@ -173,7 +176,7 @@ Replace "ADP" with your token name.
 
 ❗ Important Notes
 
-Never remove or modify the banner in the script. The banner is part of the bot’s protection and must remain intact.
+Never remove or modify the banner in the script. The banner is part of the bot's protection and must remain intact.
 
 If you want to resend tokens to the same addresses, delete sent_addresses.json first.
 
