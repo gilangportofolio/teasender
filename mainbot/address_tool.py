@@ -1,5 +1,4 @@
 import json
-import os
 
 def fix_json_format():
     try:
@@ -32,25 +31,6 @@ def filter_addresses():
     except Exception as e:
         print(f"❌ Gagal memfilter alamat: {e}")
 
-def main_menu():
-    while True:
-        print("\n📜 MENU TEA Address Tool")
-        print("\n📜 Pastikan Addres disimpan dlu di addresses.json")
-        print("1. Perbaiki format addresses.json → addresses_fixed.json")
-        print("2. Filter dan format addresses.json → filtered_addresses_formatted.json")
-        print("0. Keluar")
-
-        choice = input("Pilih menu (0-2): ")
-
-        if choice == "1":
-            fix_json_format()
-        elif choice == "2":
-            filter_addresses()
-        elif choice == "0":
-            print("👋 Keluar dari program.")
-            break
-        else:
-            print("❌ Pilihan tidak valid.")
-
+# Ini hanya untuk menjalankan langsung jika file ini di-run sendiri
 if __name__ == "__main__":
-    main_menu()
+    print("📜 address_tool.py dijalankan langsung. Gunakan via main.py untuk kontrol penuh.")
